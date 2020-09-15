@@ -79,14 +79,15 @@ def validate_packet(raw_packet):
 
 
 def init():
+    ip, port = addr
+
+    if ip == '':
+        ip = 'global'
+
     try:
         sock.bind(addr)
+        println('SERVER', f'{ip}:{port} - initialized')
     except OSError:
-        ip, port = addr
-
-        if ip == '':
-            ip = 'global'
-
         return println('SERVER', f'{ip}:{port} - failed to init, already in use')
 
     sock.listen(0)
